@@ -21,6 +21,8 @@ class SpotifyRemote(BaseHTTPRequestHandler):
         subprocess.call(["osascript", argument + ".scpt"])
 
         try:
+            f = open(curdir + sep + file_name)
+
             self.send_response(200)
             if file_name.endswith(".html"):
                 self.send_header("Content-type", "text/html")
@@ -28,7 +30,6 @@ class SpotifyRemote(BaseHTTPRequestHandler):
                 self.send_header("Content-type", "text/css")
             self.end_headers()
 
-            f = open(curdir + sep + file_name)
             self.wfile.write(f.read())
             f.close()
         except IOError:
